@@ -113,5 +113,5 @@ jobs:
       - run: |
           pip install -U pip
           pip install tox oracledb
-          export DATABASE_URL=oracle://system:oracle@localhost:1521/XEPDB1
+          export DATABASE_URL=oracle+oracledb://system:oracle@localhost:1521/?service_name=XE
           tox -e py310-django32
