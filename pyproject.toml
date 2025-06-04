@@ -23,7 +23,7 @@ classifiers = [
 ]
 
 [project.optional-dependencies]
-dev = ["dj-database-url", "pytest", "pytest-django", "tox"]
+dev = ["dj-database-url<0.6", "pytest", "pytest-django", "tox"]
 
 [project.urls]
 Homepage = "https://github.com/nobilebeniamino/django-lastdayofmonth"
