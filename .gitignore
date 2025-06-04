@@ -1,0 +1,41 @@
+# Byte-compiled / compiled files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+.venv/
+env/
+venv/
+ENV/
+
+# Distribution / packaging
+build/
+dist/
+*.egg-info/
+*.egg
+.eggs/
+
+# Test / coverage
+.coverage
+.tox/
+.pytest_cache/
+htmlcov/
+
+# Editor / OS specific
+.DS_Store
+*.swp
+*.swo
+.idea/
+.vscode/
+
+# Local config / secrets
+*.env
+.env.*
+*.sqlite3
+
+# Release script logs or local-only helpers
+release.sh
+
+# TestPyPI artifacts (optional)
+*.log
