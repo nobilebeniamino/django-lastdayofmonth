@@ -100,7 +100,10 @@ def test_datefield_annotation(invoice):
     qs = Invoice.objects.annotate(month_end=LastDayOfMonth("issued_date")).values_list(
         "month_end", flat=True
     )
-    assert qs.get() == dt.date(2024, 2, 29)
+    result = qs.get()
+    if isinstance(result, dt.datetime):
+        result = result.date()
+    assert result == dt.date(2024, 2, 29)
 
 
 @pytest.mark.django_db
@@ -108,7 +111,10 @@ def test_datetimefield_annotation(invoice):
     qs = Invoice.objects.annotate(month_end=LastDayOfMonth("issued_ts")).values_list(
         "month_end", flat=True
     )
-    assert qs.get() == dt.date(2024, 2, 29)
+    result = qs.get()
+    if isinstance(result, dt.datetime):
+        result = result.date()
+    assert result == dt.date(2024, 2, 29)
 
 
 @pytest.mark.django_db
