@@ -1,7 +1,7 @@
 # django-lastdayofmonth
 
 [![PyPI](https://img.shields.io/pypi/v/django-lastdayofmonth.svg)](https://pypi.org/project/django-lastdayofmonth/)
-[![Tests](https://github.com/beniaminonobile/django-lastdayofmonth/actions/workflows/ci.yml/badge.svg)](https://github.com/beniaminonobile/django-lastdayofmonth/actions)
+[![Tests](https://github.com/nobilebeniamino/django-lastdayofmonth/actions/workflows/ci.yml/badge.svg)](https://github.com/nobilebeniamino/django-lastdayofmonth/actions)
 [![PyPI - Python Version](https://img.shields.io/pypi/pyversions/django-lastdayofmonth)](https://pypi.org/project/django-lastdayofmonth/)
 
 *A cross‑database `LastDayOfMonth` ORM function for Django.*
@@ -78,7 +78,7 @@ Tested continuously in CI via **tox** & GitHub Actions.
 Pull‑requests and bug reports are welcome!
 
 ```bash
-git clone https://github.com/beniaminonobile/django-lastdayofmonth.git
+git clone https://github.com/nobilebeniamino/django-lastdayofmonth.git
 cd django-lastdayofmonth
 pip install -e .[dev]      # optional extras: pytest, tox, black…
 tox                        # runs the full test matrix
