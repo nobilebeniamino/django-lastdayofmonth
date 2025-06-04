@@ -13,8 +13,15 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: ["3.8", "3.9", "3.10", "3.12"]
-        django-version: ["32"]
+        include:
+          - python-version: "3.8"
+            tox-env: py38-django32
+          - python-version: "3.9"
+            tox-env: py39-django32
+          - python-version: "3.10"
+            tox-env: py310-django32
+          - python-version: "3.12"
+            tox-env: py312-django32
 
     steps:
       - uses: actions/checkout@v4
@@ -24,8 +31,7 @@ jobs:
       - run: |
           pip install -U pip
           pip install tox
-          ENV_NAME=py${{ matrix.python-version | replace('.', '') }}-django${{ matrix.django-version }}
-          tox -e $ENV_NAME
+          tox -e ${{ matrix.tox-env }}
 
   postgresql:
     name: PostgreSQL
