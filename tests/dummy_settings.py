@@ -24,3 +24,10 @@ elif DATABASES["default"]["ENGINE"] == "django.db.backends.oracle":
         "MIRROR": None,
         "KEEPDB": True,
     }
+
+try:
+    import oracledb
+    import sys
+    sys.modules["cx_Oracle"] = oracledb
+except ImportError:
+    pass

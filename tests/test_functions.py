@@ -31,13 +31,6 @@ from django.test.utils import isolate_apps
 
 from django_lastdayofmonth import LastDayOfMonth
 
-try:
-    import oracledb
-    import sys
-    sys.modules["cx_Oracle"] = oracledb
-except ImportError:
-    pass
-
 # ---------------------------------------------------------------------------
 # 1. Dynamic model definition (no migrations)
 # ---------------------------------------------------------------------------
