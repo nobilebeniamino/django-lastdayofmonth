@@ -22,5 +22,8 @@ classifiers = [
     "License :: OSI Approved :: MIT License",
 ]
 
+[project.optional-dependencies]
+dev = ["dj-database-url", "pytest", "pytest-django", "tox"]
+
 [project.urls]
 Homepage = "https://github.com/nobilebeniamino/django-lastdayofmonth"
