@@ -21,4 +21,6 @@ elif DATABASES["default"]["ENGINE"] == "django.db.backends.oracle":
         "USER": DATABASES["default"]["USER"],
         "TBLSPACE": "USERS",
         "TBLSPACE_TMP": "TEMP",
+        "MIRROR": None,
+        "KEEPDB": True,
     }
