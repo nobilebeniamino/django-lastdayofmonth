@@ -144,6 +144,8 @@ def test_various_months(db, input_date, expected):
         .values_list("month_end", flat=True)
         .get()
     )
+    if isinstance(result, dt.datetime):
+        result = result.date()
     assert result == expected
 
 

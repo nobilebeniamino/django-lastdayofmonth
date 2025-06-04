@@ -12,3 +12,7 @@ DATABASES = {
         default="sqlite:///:memory:"
     )
 }
+
+# Hack for MySQL/MariaDB
+if DATABASES["default"]["ENGINE"] == "django.db.backends.mysql":
+    DATABASES["default"]["TEST"] = {"NAME": DATABASES["default"]["NAME"]}

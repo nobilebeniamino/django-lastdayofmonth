@@ -112,6 +112,6 @@ jobs:
           python-version: "3.10"
       - run: |
           pip install -U pip
-          pip install tox cx_Oracle
+          pip install tox oracledb
           export DATABASE_URL=oracle://system:oracle@localhost:1521/XEPDB1
           tox -e py310-django32
