@@ -1,23 +1,13 @@
-# django-lastdayofmonth
+# django‑lastdayofmonth
 
 [![PyPI](https://img.shields.io/pypi/v/django-lastdayofmonth.svg)](https://pypi.org/project/django-lastdayofmonth/)
-[![Tests](https://github.com/nobilebeniamino/django-lastdayofmonth/actions/workflows/ci.yml/badge.svg)](https://github.com/nobilebeniamino/django-lastdayofmonth/actions)
-[![PyPI - Python Version](https://img.shields.io/pypi/pyversions/django-lastdayofmonth)](https://pypi.org/project/django-lastdayofmonth/)
+[![PyPI - Python Version](https://img.shields.io/pypi/pyversions/django-lastdayofmonth.svg)](https://pypi.org/project/django-lastdayofmonth/)
+[![CI](https://github.com/nobilebeniamino/django-lastdayofmonth/actions/workflows/ci.yml/badge.svg)](https://github.com/nobilebeniamino/django-lastdayofmonth/actions)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-*A cross‑database `LastDayOfMonth` ORM function for Django.*
+*Cross‑database **`LastDayOfMonth`** ORM function for Django.*
 
----
-
-## Motivation
-
-Calculating the last calendar day of a month is a common requirement for:
-
-* payroll cut‑offs  
-* month‑end KPI dashboards  
-* fiscal or accounting reports  
-
-Without this helper you either hand‑roll vendor‑specific SQL or subclass `django.db.models.Func` in every project.  
-**django‑lastdayofmonth** gives you **one import** that works on all official Django back‑ends.
+Calculate the last calendar day of any month directly in the database, with the same API on **SQLite, PostgreSQL, MySQL/MariaDB and Oracle**.
 
 ---
 
@@ -27,73 +17,60 @@ Without this helper you either hand‑roll vendor‑specific SQL or subclass `dj
 pip install django-lastdayofmonth
 ```
 
-No settings, no project tweaks, no extra apps.
+Add it to `INSTALLED_APPS` (Django auto‑config is supported, no settings needed):
+
+```python
+INSTALLED_APPS = [
+    ...
+    "django_lastdayofmonth",
+]
+```
 
 ---
 
-## Quick start
+## Compatibility matrix
+
+| Django version | Python version | Supported back‑ends                                                 |
+| -------------- | -------------- | ------------------------------------------------------------------- |
+| 3.2 LTS → 5.0  | 3.8 → 3.12     | SQLite, PostgreSQL ≥ 12, MySQL ≥ 5.7 / MariaDB ≥ 10.4, Oracle ≥ 19c |
+
+The library is fully tested in CI across all the combinations above.
+
+---
+
+## Quick usage
 
 ```python
+from django.db.models import DateField
 from django_lastdayofmonth import LastDayOfMonth
-from invoices.models import Invoice
 
-invoices = (
-    Invoice.objects
-    .annotate(period_end=LastDayOfMonth("issued_at"))
-    .values("issued_at", "period_end")
+# annotate each invoice with the month‑end date of its `issued_date`
+Invoice.objects.annotate(
+    month_end=LastDayOfMonth("issued_date")
 )
 ```
 
-* `period_end` is a plain `date` containing the month’s last day.  
-* Works with **`DateField`** *and* **`DateTimeField`** expressions.  
-* Plays nicely with `filter()`, `annotate()`, `aggregate()`, etc.
+`LastDayOfMonth` works in **`annotate()`**, **`filter()`**, **`aggregate()`**, etc.
 
 ---
 
-## What SQL is generated?
+## Why?
 
-| Backend         | SQL emitted                                                               |
-|-----------------|---------------------------------------------------------------------------|
-| PostgreSQL      | `date_trunc('month', exp + interval '1 month') - interval '1 day'`        |
-| MySQL / MariaDB | `LAST_DAY(exp)`                                                           |
-| SQLite          | `date(exp, '+1 month', 'start of month', '-1 day')`                       |
-| Oracle          | `LAST_DAY(exp)`                                                           |
-
-*MySQL/MariaDB and Oracle expose `LAST_DAY()` natively, so the helper is essentially zero‑cost on those engines.*
+Calculating month‑end boundaries in Python causes heavy data transfer and breaks query optimisations.  Leveraging the database engine keeps logic in SQL and stays performant.
 
 ---
 
-## Compatibility
-
-| Django        | Python   | Back‑ends                                                                       |
-|---------------|----------|---------------------------------------------------------------------------------|
-| 3.2 LTS → 4.2 | 3.8–3.10 | SQLite, PostgreSQL ≥ 12, MySQL ≥ 5.7 / MariaDB ≥ 10.4, Oracle ≥ 19c             |
-
-Tested continuously in CI via **tox** & GitHub Actions.
-
----
-
-## Contributing
-
-Pull‑requests and bug reports are welcome!
+## Running tests locally
 
 ```bash
-git clone https://github.com/nobilebeniamino/django-lastdayofmonth.git
-cd django-lastdayofmonth
-pip install -e .[dev]      # optional extras: pytest, tox, black…
-tox                        # runs the full test matrix
+pip install tox pytest pytest-django dj-database-url mysqlclient oracledb psycopg2-binary  # install testing and DB driver dependencies
+pytest -q --reuse-db                 # run tests locally
 ```
 
-Please include tests for new logic—see `tests/test_functions.py` for examples.
-
----
-
-## Changelog
-
-See **CHANGELOG.md** for released versions.
+Use `tox` to run the full matrix (`tox -p auto`). See `.github/workflows/ci.yml` for Docker examples of each database.
 
 ---
 
 ## License
 
-Licensed under the MIT License—see **LICENSE** for details.
+Released under the **MIT** license. See the [LICENSE](LICENSE) file for details.

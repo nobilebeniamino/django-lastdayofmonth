@@ -4,16 +4,18 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "django-lastdayofmonth"
-version = "0.9.0"
+version = "1.0.0"
 description = "Cross-database LastDayOfMonth function for Django ORM"
 readme = "README.md"
 license = {text = "MIT"}
 authors = [{name = "Beniamino Nobile", email = "beniaminonobile@gmail.com"}]
-dependencies = ["Django>=3.2"]
+dependencies = ["Django>=3.2,<5.2"]
 keywords = ["django", "orm", "last day", "date functions", "calendar", "postgresql", "sqlite"]
 requires-python = ">=3.8"
 classifiers = [
-    "Framework :: Django",
+    "Framework :: Django :: 3.2",
+    "Framework :: Django :: 4.2",
+    "Framework :: Django :: 5.0",
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3.8",
     "Programming Language :: Python :: 3.9",
