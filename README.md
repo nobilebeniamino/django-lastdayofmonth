@@ -30,9 +30,9 @@ INSTALLED_APPS = [
 
 ## Compatibility matrix
 
-| Django version | Python version | Supported back‑ends                                                 |
-| -------------- | -------------- | ------------------------------------------------------------------- |
-| 3.2 LTS → 5.0  | 3.8 → 3.12     | SQLite, PostgreSQL ≥ 12, MySQL ≥ 5.7 / MariaDB ≥ 10.4, Oracle ≥ 19c |
+| Django version     | Python version | Supported back‑ends                                                 |
+| ------------------ | -------------- | ------------------------------------------------------------------- |
+| 3.2 LTS → 5.2 LTS  | 3.8 → 3.12     | SQLite, PostgreSQL ≥ 12, MySQL ≥ 5.7 / MariaDB ≥ 10.4, Oracle ≥ 19c |
 
 The library is fully tested in CI across all the combinations above.
 
