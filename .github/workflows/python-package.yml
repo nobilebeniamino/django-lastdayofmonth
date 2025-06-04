@@ -1,36 +1,116 @@
-name: Django package CI
+name: Django Multi-DB CI
 
 on:
   push:
-    branches: [ "main" ]
+    branches: ["main"]
   pull_request:
-    branches: [ "main" ]
+    branches: ["main"]
 
 jobs:
-  test:
-    name: Test with tox
+
+  sqlite:
+    name: SQLite
     runs-on: ubuntu-latest
 
     strategy:
-      fail-fast: false
       matrix:
         python-version: ["3.8", "3.9", "3.10", "3.12"]
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v3
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v3
         with:
           python-version: ${{ matrix.python-version }}
-
-      - name: Install tox
-        run: |
-          python -m pip install --upgrade pip
+      - run: |
+          pip install -U pip
           pip install tox
+          tox -e py${{ matrix.python-version//./ }}-django32
 
-      - name: Run test matrix with tox
+  postgresql:
+    name: PostgreSQL
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:13
         env:
-          DJANGO_SETTINGS_MODULE: dummy_settings
-        run: tox
+          POSTGRES_DB: testdb
+          POSTGRES_USER: testuser
+          POSTGRES_PASSWORD: testpass
+        ports: [5432:5432]
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v3
+        with:
+          python-version: "3.10"
+      - run: |
+          pip install -U pip
+          pip install tox
+          export DJANGO_DB=postgres
+          export DATABASE_URL=postgres://testuser:testpass@localhost:5432/testdb
+          tox -e py310-django32
+
+  mysql:
+    name: MySQL / MariaDB
+    runs-on: ubuntu-latest
+
+    services:
+      mariadb:
+        image: mariadb:10.6
+        env:
+          MYSQL_DATABASE: testdb
+          MYSQL_USER: testuser
+          MYSQL_PASSWORD: testpass
+          MYSQL_ROOT_PASSWORD: rootpass
+        ports: [3306:3306]
+        options: >-
+          --health-cmd "mysqladmin ping -h 127.0.0.1 -u root --password=rootpass"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v3
+        with:
+          python-version: "3.10"
+      - run: |
+          pip install -U pip
+          pip install tox
+          export DJANGO_DB=mysql
+          export DATABASE_URL=mysql://testuser:testpass@127.0.0.1:3306/testdb
+          tox -e py310-django32
+
+  oracle:
+    name: Oracle XE
+    runs-on: ubuntu-latest
+
+    services:
+      oracle:
+        image: gvenzl/oracle-xe:21-slim
+        env:
+          ORACLE_PASSWORD: oracle
+        ports: [1521:1521]
+        options: >-
+          --health-cmd "echo 'SELECT 1 FROM DUAL;' | sqlplus -s system/oracle@//localhost:1521/XEPDB1"
+          --health-interval 15s
+          --health-timeout 5s
+          --health-retries 10
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v3
+        with:
+          python-version: "3.10"
+      - run: |
+          pip install -U pip
+          pip install tox
+          export DJANGO_DB=oracle
+          export DATABASE_URL=oracle://system:oracle@localhost:1521/XEPDB1
+          tox -e py310-django32
