@@ -14,6 +14,7 @@ jobs:
     strategy:
       matrix:
         python-version: ["3.8", "3.9", "3.10", "3.12"]
+        django-version: ["32"]
 
     steps:
       - uses: actions/checkout@v4
@@ -23,7 +24,8 @@ jobs:
       - run: |
           pip install -U pip
           pip install tox
-          tox -e py${{ matrix.python-version//./ }}-django32
+          ENV_NAME=py${{ matrix.python-version | replace('.', '') }}-django${{ matrix.django-version }}
+          tox -e $ENV_NAME
 
   postgresql:
     name: PostgreSQL
@@ -49,7 +51,7 @@ jobs:
           python-version: "3.10"
       - run: |
           pip install -U pip
-          pip install tox
+          pip install tox psycopg2-binary
           export DATABASE_URL=postgres://testuser:testpass@localhost:5432/testdb
           tox -e py310-django32
 
