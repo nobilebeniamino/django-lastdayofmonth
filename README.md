@@ -17,14 +17,8 @@ Calculate the last calendar day of any month directly in the database, with the 
 pip install django-lastdayofmonth
 ```
 
-Add it to `INSTALLED_APPS` (Django auto‑config is supported, no settings needed):
-
-```python
-INSTALLED_APPS = [
-    ...
-    "django_lastdayofmonth",
-]
-```
+That’s it — no settings tweaks required.  
+Simply import the helper wherever you need it (see **Quick usage** for an example).
 
 ---
 

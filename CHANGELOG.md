@@ -1,3 +1,6 @@
+## 1.1.0 – 2025-06-14
+* Added official Django 5.2 support
+
 # Changelog
 
 ## 0.1.0 • 2025-06-04
