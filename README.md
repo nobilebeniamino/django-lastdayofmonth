@@ -1,11 +1,4 @@
 # django‑lastdayofmonth
-## Compatibility matrix
-
-| Django version     | Python version | Supported back‑ends                                                 |
-| ------------------ | -------------- | ------------------------------------------------------------------- |
-| 3.2 LTS → 5.2 LTS  | 3.8 → 3.13     | SQLite, PostgreSQL ≥ 12, MySQL ≥ 5.7 / MariaDB ≥ 10.4, Oracle ≥ 19c |
-
-The library is fully tested in CI across all the combinations above.
 
 [![PyPI](https://img.shields.io/pypi/v/django-lastdayofmonth.svg)](https://pypi.org/project/django-lastdayofmonth/)
 [![PyPI - Python Version](https://img.shields.io/pypi/pyversions/django-lastdayofmonth.svg)](https://pypi.org/project/django-lastdayofmonth/)
@@ -24,16 +17,17 @@ Calculate the last calendar day of any month directly in the database, with the 
 pip install django-lastdayofmonth
 ```
 
-That’s it — no settings tweaks required.  
+That's it — no settings tweaks required.  
 Simply import the helper wherever you need it (see **Quick usage** for an example).
 
 ---
 
 ## Compatibility matrix
 
-| Django version     | Python version | Supported back‑ends                                                 |
+| Django version     | Python version | Supported back‑ends                                                 |
 | ------------------ | -------------- | ------------------------------------------------------------------- |
-| 3.2 LTS → 5.2 LTS  | 3.8 → 3.12     | SQLite, PostgreSQL ≥ 12, MySQL ≥ 5.7 / MariaDB ≥ 10.4, Oracle ≥ 19c |
+| 3.2 LTS            | 3.8 → 3.12     | SQLite, PostgreSQL ≥ 12, MySQL ≥ 5.7 / MariaDB ≥ 10.4, Oracle ≥ 19c |
+| 4.2 LTS → 5.2 LTS  | 3.8 → 3.13     | SQLite, PostgreSQL ≥ 12, MySQL ≥ 5.7 / MariaDB ≥ 10.4, Oracle ≥ 19c |
 
 The library is fully tested in CI across all the combinations above.
 
