@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "django-lastdayofmonth"
-version = "1.1.0"
+version = "1.2.0"
 description = "Cross-database LastDayOfMonth function for Django ORM"
 readme = "README.md"
 license = {text = "MIT"}
@@ -22,6 +22,7 @@ classifiers = [
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
     "License :: OSI Approved :: MIT License",
 ]
 
@@ -30,3 +31,9 @@ dev = ["dj-database-url<0.6", "pytest", "pytest-django", "tox"]
 
 [project.urls]
 Homepage = "https://github.com/nobilebeniamino/django-lastdayofmonth"
+
+[tool.pytest.ini_options]
+DJANGO_SETTINGS_MODULE = "tests.dummy_settings"
+python_files = ["tests.py", "test_*.py", "*_tests.py"]
+pythonpath = ["."]
+testpaths = ["tests"]

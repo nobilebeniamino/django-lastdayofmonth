@@ -1,4 +1,11 @@
 # django‑lastdayofmonth
+## Compatibility matrix
+
+| Django version     | Python version | Supported back‑ends                                                 |
+| ------------------ | -------------- | ------------------------------------------------------------------- |
+| 3.2 LTS → 5.2 LTS  | 3.8 → 3.13     | SQLite, PostgreSQL ≥ 12, MySQL ≥ 5.7 / MariaDB ≥ 10.4, Oracle ≥ 19c |
+
+The library is fully tested in CI across all the combinations above.
 
 [![PyPI](https://img.shields.io/pypi/v/django-lastdayofmonth.svg)](https://pypi.org/project/django-lastdayofmonth/)
 [![PyPI - Python Version](https://img.shields.io/pypi/pyversions/django-lastdayofmonth.svg)](https://pypi.org/project/django-lastdayofmonth/)
@@ -58,7 +65,7 @@ Calculating month‑end boundaries in Python causes heavy data transfer and brea
 
 ```bash
 pip install tox pytest pytest-django dj-database-url mysqlclient oracledb psycopg2-binary  # install testing and DB driver dependencies
-pytest -q --reuse-db                 # run tests locally
+pytest -q --reuse-db                 # run tests locally (requires pytest configuration in pyproject.toml)
 ```
 
 Use `tox` to run the full matrix (`tox -p auto`). See `.github/workflows/ci.yml` for Docker examples of each database.
