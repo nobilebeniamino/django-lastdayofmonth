@@ -1,3 +1,11 @@
+## 1.2.0 – 2025-08-06
+* Added official Python 3.13 support (Django 4.2+)
+* Excluded Python 3.13 from Django 3.2 due to cgi module removal
+* Updated compatibility matrix and documentation
+* Fixed CI and tox configuration for Python 3.13
+* Improved pytest configuration for local and CI testing
+* README structure and badge fixes
+
 ## 1.1.0 – 2025-06-14
 * Added official Django 5.2 support
 
